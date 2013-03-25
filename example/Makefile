@@ -1,12 +1,12 @@
 .PHONY: test build clean
 
 test: build
-	./test
-	./test < /dev/null; [ $$? -eq 1 ]
+	./example
+	./example < /dev/null; [ $$? -eq 1 ]
 
 
 build:
 	go build -v
 
 clean:
-	rm -f test
+	rm -f example

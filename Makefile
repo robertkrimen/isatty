@@ -1,10 +1,10 @@
 .PHONY: test clean
 
 test:
-	$(MAKE) -C test $@
+	$(MAKE) -C example $@
 
 clean:
-	$(MAKE) -C test $@
+	$(MAKE) -C example $@
 
 release: test
 	godocdown --signature > README.markdown

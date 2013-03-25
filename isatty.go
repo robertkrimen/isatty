@@ -1,4 +1,13 @@
-// Package isatty uses an ioctl request to determine if a file descriptor is a terminal.
+// Package isatty tries to determine if a file descriptor is connected to a terminal.
+//
+//      import (
+//          "github.com/robertkrimen/isatty"
+//          "os"
+//      )
+//
+//      func isTerminalStdin() bool {
+//          return isatty.Check(os.Stdin.Fd())
+//      }
 //
 // Originally adapted from: https://code.google.com/p/go/source/browse/ssh/terminal/util.go?repo=crypto
 package isatty
@@ -6,7 +15,7 @@ package isatty
 // Check will return true if the file descriptor is a terminal and false otherwise.
 //
 // If Check is unable to determine the terminal status of a file descriptor, then it returns false. This could
-// be the case if this package is used on Windows, which lacks the necessary ioctl access.
+// be the case if this package is used on Windows or an unknown/unconsidered platform.
 func Check(fd uintptr) bool {
 	return check(fd)
 }
@@ -15,7 +24,9 @@ func Check(fd uintptr) bool {
 //
 //      Darwin (Mac OS X)   CanCheck() => true   # syscall.Syscall6(..., TIOCGETA, ...)
 //      Linux               CanCheck() => true   # syscall.Syscall6(..., TCGETS, ...)
+//      FreeBSD             CanCheck() => true   # syscall.Syscall6(..., TIOCGETA, ...)
 //      Windows             CanCheck() => false  # N/A
+//      (Otherwise)         CanCheck() => false  # N/A
 //
 func CanCheck() bool {
 	return canCheck()
