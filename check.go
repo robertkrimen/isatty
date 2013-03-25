@@ -1,4 +1,4 @@
-// +build linux,!appengine darwin
+// +build linux,!appengine darwin freebsd
 
 package isatty
 

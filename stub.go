@@ -1,8 +1,8 @@
-// +build !linux,!darwin
+// +build !linux,!darwin,!freebsd
 
 package isatty
 
-func check(fd int) bool {
+func check(fd uintptr) bool {
 	return false
 }
 
